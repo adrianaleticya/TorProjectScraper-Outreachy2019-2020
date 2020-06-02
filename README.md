@@ -58,19 +58,25 @@ The file was initially named "tor.csv". However, you can change it to fit your p
 
 Remember to keep the file extension .csv as to prevent compatibility problems. This can be a special problem if you're using Linux. 
 
-### Modifying The URL From Where You Will Be Fetching Information
+### Modifying The baseURL 
 
-To change the source from where the information will be fetched there are two different variables that will need to be mosified. The first one is baseURL. In the code it looks like the snippet below:
+The variable ```baseURL``` is the one pointing to the address where the desired data is. In the code it looks like the snippet below:
 
-```const baseURL = 'https://blog.torproject.org'```
+```javascript
+baseURL = 'https://blog.torproject.org'
+```
 
 The baseURL is the primary address that you will be working with. In this case, as the crawler was working with the Tor Project Blog website, the address is <https://blog.torproject.org>.
 
-It is important to notice that this address is already a page where all the articles get listed, limited by a certain number of publications per page. If the website that you intend to work with doesn't show the posts on the front page, remember to use the URL of the blog page of said website. Such as:
+It is important to notice that this address is already a page where all the articles get listed, limited by a certain number of publications per page. If the website that you intend to work with doesn't show the posts on the front page, remember to use the URL of the blog page of said website.
 
-If your website address is <mywebsite.com>, but you have a different page for blog entries as: <mywebsite.com/blog> then the correct base URL to use is <mywebsite.com/blog>.
+For example, if your website address is <mywebsite.com>, but you have a different page for blog entries as: <mywebsite.com/blog> then the correct base URL to use is <mywebsite.com/blog>.
 
-## Pay Attention To Pagination
+## Understanding Pagination
+
+There are two different ways of URL, one is a Path Params and the other is a Querry Params. URLs that are Path Params look like that:
+
+< **mywebsite.com/page/2** >
 
 It is important to understand how the crawler works with the pages. It has been develop to work with an specific kind of pagination. If your website works the same way as Tor Project Blog, then you are good to go. Else you will need to work a bit with the code. 
 

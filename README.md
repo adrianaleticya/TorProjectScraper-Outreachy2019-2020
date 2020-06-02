@@ -70,13 +70,13 @@ The baseURL is the primary address that you will be working with. In this case, 
 
 It is important to notice that this address is already a page where all the articles get listed, limited by a certain number of publications per page. If the website that you intend to work with doesn't show the posts on the front page, remember to use the URL of the blog page of said website.
 
-For example, if your website address is <mywebsite.com>, but you have a different page for blog entries as: <mywebsite.com/blog> then the correct base URL to use is <mywebsite.com/blog>.
+For example, if your website address is <mywebsite.com>, but you have a different page for blog entries as: <http://mywebsite.com/blog> then the correct base URL to use is <http://mywebsite.com/blog>.
 
 ## Understanding Pagination
 
 There are two different ways of URL, one is a Path Params and the other is a Querry Params. URLs that are Path Params look like that:
 
-< **mywebsite.com/page/2** >
+ **http://mywebsite.com/page/2** 
 
 It is important to understand how the crawler works with the pages. It has been develop to work with an specific kind of pagination. If your website works the same way as Tor Project Blog, then you are good to go. Else you will need to work a bit with the code. 
 

@@ -74,17 +74,21 @@ For example, if your website address is <mywebsite.com>, but you have a differen
 
 ## Understanding Pagination
 
-There are two different ways of URL, one is a Path Params and the other is a Querry Params. URLs that are Path Params look like that:
+There are two different URL Params, one is a Path Params and the other is a Querry Params. 
+URLs that are Path Params look like that:
 
  **http://mywebsite.com/page/2** 
 
-It is important to understand how the crawler works with the pages. It has been develop to work with an specific kind of pagination. If your website works the same way as Tor Project Blog, then you are good to go. Else you will need to work a bit with the code. 
+URLs that are Querry Params look like that:
+**http://mywebsite.com/?page=2** 
 
-The pagination working by default is: 
+This crawler was designed for a Querry Params URL as we can see bellow: 
 
-<mywebsite.com/page/number/>
+```javascript
+paramPage: '?page='
+```
+It is important to understand how the crawler works with the pages. If your website works the same way as Tor Project Blog, then you are good to go. Else it is necessary to comment the ```javascript paramPage: '?page='``` and uncomment ```javascript paramPage: 'page/'```
 
-Where 'number' can be changed by any number of existing pages. 
 
 ## Changing Information Fetched According To Your Blog
 

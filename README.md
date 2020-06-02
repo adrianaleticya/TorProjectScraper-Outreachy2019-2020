@@ -98,11 +98,26 @@ Inside the file ```config.js``` there are two variables that define the number o
   firstPage: 0
   finalPage: 60
   ```
-  As shown above those variables are analysing from the page 0 to the page 60. Where the ```firstPage``` received the first page cointaining the blog posts and ```finalPage``` received the last one. The Tor Project Blog has much more than 60 pages, however after running some stress tests 60 seems to be the limit of pages analysed at the same time without crashing the application.
+  As shown above those variables are analysing from the page 0 to the page 60. Where the ```firstPage``` received the first page cointaining the blog posts and ```finalPage``` received the last one. The Tor Project Blog has much more than 60 pages. However, after running some stress tests, 60 seems to be the limit of pages analysed at the same time without crashing the application.
   
 To overcome this problem a simple solution is running ```index.js``` as many times as necessary to cover all the available pages. Only need to change the pages according to the execution. On the second time running, ```firstPage``` receives 61 and  ```finalPage``` receives 120. Always keeping the limit of 60 pages per run. 
 
+## Understanding How The Crawler Collects Data
 
+This crawler was developed to organize and document all the posts published in the Tor Blog. In order to do that the elements of the blog were inspected and using html elements it was possible to get specific information from each article. Those informations are: time stamp, date posted, title, author, and tags. This structure was thought through to fit the organizational process that The Tor Project needed at the time. 
+
+If you are intending to use it elsewhere it is necessary to understand which data is important to you and how to change the fetching paths inside the code. 
+
+### Inspecting The Elements
+
+On the first page of the Tor Blog and using the elements inspection of the browser it was possible to identify which classes, divs and span where necessary to locate each article from each page. Once the correct path was tracked down, then it was inserted in the code. 
+
+```javascript
+    const querrySelector = '.main-content-container .main-content .main-content-inner .inner-inner .region-content .views-element-container .views-row article'
+ ```
+Above is the first time that the constant ```querrySelector``` appears. This constant is used to receive the classes cointaned inside the divs. The classes above are a path to find the URL extension of each article on the page. This selector will do it for each article on each of the 60 pages. 
+
+You need to inspect the elements in the desired page to find the correct path and set it inside the ```querrySelector```.
 
 
 

@@ -2,16 +2,12 @@ const request = require('request')
 const cheerio = require('cheerio')
 const fs = require('fs')
 
-const [firstPage, finalPage] = [0, 60]
-
-const fileName = 'tor.csv'
+const { firstPage, finalPage, paramPage, fileName, baseURL } = require('./config')
 
 if(!firstPage) fs.appendFile(fileName, 'TimeStamp;Date;Title;Uri;Author;Tags\n', () => {})
 
-const baseURL = 'https://blog.torproject.org'
-
-for(let page = firstPage; page < finalPage; page++) {
-  const mainURL = `${baseURL}/?page=${page}`
+for(let pageNumber = firstPage; pageNumber < finalPage; pageNumber++) {
+  const mainURL = `${baseURL}${paramPage}${pageNumber}`
 
   request(mainURL, function(err, res, body) {
     if(err) console.log(`Error: ${err}`)
@@ -47,5 +43,4 @@ for(let page = firstPage; page < finalPage; page++) {
     })
 
   })
-
 }

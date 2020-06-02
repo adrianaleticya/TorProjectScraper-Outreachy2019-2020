@@ -1,0 +1,23 @@
+{
+  "name": "tor-crawler",
+  "version": "1.0.0",
+  "description": "Crawler in Javascript created to fetch information from the Tor Project Blog in order to organizer a spreadsheet with blog entries information and document the current posts",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "Tor",
+    "Crawler",
+    "Information",
+    "Organizer",
+    "Documenting"
+  ],
+  "author": "Adriana Leticya",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "fs": "0.0.1-security",
+    "request": "^2.88.2"
+  }
+}

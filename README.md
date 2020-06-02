@@ -58,7 +58,7 @@ The file was initially named "tor.csv". However, you can change it to fit your p
 
 Remember to keep the file extension .csv as to prevent compatibility problems. This can be a special problem if you're using Linux. 
 
-### Modifying The baseURL 
+### Changing The baseURL 
 
 The variable ```baseURL``` is the one pointing to the address where the desired data is. In the code it looks like the snippet below:
 
@@ -72,7 +72,7 @@ It is important to notice that this address is already a page where all the arti
 
 For example, if your website address is <mywebsite.com>, but you have a different page for blog entries as: <http://mywebsite.com/blog> then the correct base URL to use is <http://mywebsite.com/blog>.
 
-## Understanding Pagination
+### Understanding Pagination
 
 There are two different URL Params, one is a Path Params and the other is a Querry Params. 
 URLs that are Path Params look like that:
@@ -87,10 +87,22 @@ This crawler was designed for a Querry Params URL as we can see bellow:
 ```javascript
 paramPage: '?page='
 ```
-It is important to understand how the crawler works with the pages. If your website works the same way as Tor Project Blog, then you are good to go. Else it is necessary to comment the ```javascript paramPage: '?page='``` and uncomment ```javascript paramPage: 'page/'```
+It is important to understand how the crawler works with the pages. If your website works the same way as Tor Project Blog, then you are good to go. Else it is necessary to comment the ```paramPage: '?page='``` and uncomment ```paramPage: 'page/'```.
+
+#### Understanding The Number Of Pages Fetched
+
+Inside the file ```config.js``` there are two variables that define the number of pages analysed every time you run the ```index.js```. 
+
+```javascript
+  firstPage: 0
+  finalPage: 60
+  ```
+  As shown above those variables are analysing from the page 0 to the page 60. Where the ```firstPage``` received the first page cointaining the blog posts and ```finalPage``` received the last one. The Tor Project Blog has much more than 60 pages, however after running some stress tests 60 seems to be the limit of pages analysed at the same time without crashing the application.
+  
+To overcome this problem a simple solution is running ```index.js``` as many times as necessary to cover all the available pages. Only need to change the pages according to the execution. On the second time running, ```firstPage``` receives 61 and  ```finalPage``` receives 120. Always keeping the limit of 60 pages per run. 
 
 
-## Changing Information Fetched According To Your Blog
+
 
 
 

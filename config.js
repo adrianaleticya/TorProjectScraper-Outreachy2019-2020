@@ -1,6 +1,6 @@
 module.exports = {
   firstPage: 0,
-  finalPage: 1,
+  finalPage: 60,
   paramPage: '?page=',
   // paramPage: 'page/',
   fileName: 'tor.csv',

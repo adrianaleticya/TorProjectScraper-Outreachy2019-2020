@@ -4,11 +4,16 @@ Crawler in JavaScript created to fetch info from the Tor Project Blog in order t
 
 ## How To Use it?
 
-To use this crawler you just need NodeJS installed in your system. To execute through command line (prompt) you can type
+To use this crawler you just need NodeJS installed in your system and download this repository. Inside the repository execute through command line (prompt). Run:
 
-```$ node tor.js ```
+```$ npm i```
 
-This code will generate a file that can be opened by any spreadsheet software. Such as:
+then
+
+```$ npm start``` or ```$ node index.js ```
+
+
+This command will run the crawler. That will generate a file that can be opened by any spreadsheet software. Such as:
 
 1. LibreOffice Calc
 
@@ -16,21 +21,44 @@ This code will generate a file that can be opened by any spreadsheet software. S
 
 3. Any other software that reads cvs files. 
 
- The file was initially named "tor.csv". However, you can change it to fit your purpose. 
+As soon as the code executes you can follow the fetching process through the terminal, where the information shown is the same being recorded in the .csv file. 
+
+The file was initially named "tor.csv". However, you can change it to fit your purpose. 
  
- ## Modifying The .CVS File Name
+ ## Understanding The Config.js
  
- To modify the file name locate in the code the const 'fileName':
+ The file config.js was created to aid the process to change important parameters. 
  
- ```const fileName = 'tor.csv'```
+ ```javascript
+ module.exports = {
+  firstPage: 0,
+  finalPage: 60,
+  paramPage: '?page=',
+  // paramPage: 'page/',
+  fileName: 'tor.csv',
+  baseURL: 'https://blog.torproject.org/'
+  }
+  ```
+ 
+ As shown above we have in this file the initial and final page to be fetched, the URL parameter to be used, the name of the .csv file to be created and the base URL where the data will be collected. 
+ 
+ ### Changing the .CSV File Name
+ 
+ To modify the name of the .csv file locate in the code 'fileName':
+ 
+ ```javascript
+ fileName = 'tor.csv'
+ ```
  
  And modify the atributed name as necessary:
  
- ```const fileName = 'yourfilenamehere.csv'```
+ ```javascript
+ fileName = 'yourfilenamehere.csv'
+ ```
 
 Remember to keep the file extension .csv as to prevent compatibility problems. This can be a special problem if you're using Linux. 
 
-## Modifying The URL From Where You Will Be Fetching Information
+### Modifying The URL From Where You Will Be Fetching Information
 
 To change the source from where the information will be fetched there are two different variables that will need to be mosified. The first one is baseURL. In the code it looks like the snippet below:
 

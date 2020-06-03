@@ -117,9 +117,56 @@ On the first page of the Tor Blog and using the elements inspection of the brows
  ```
 Above is the first time that the constant ```querrySelector``` appears. This constant is used to receive the classes cointaned inside the divs. The classes above are a path to find the URL extension of each article on the page. This selector will do it for each article on each of the 60 pages. 
 
-You need to inspect the elements in the desired page to find the correct path and set it inside the ```querrySelector```.
+You need to inspect the elements in the desired page to find the correct path and set it inside the ```querrySelector```. The objective here is fiding the main class that contains the body, and consequently the ID of your posts at the blog page. This is a process that may take some time as each website is different. 
 
+After you indicated the path inside the ```querrySelector``` then it's time to create the adresses of each article that will be inspected. The snippet below is what makes que selector piece together the ´´´baseURL´´´ and the complement that makes each articles' address. 
 
+```javascript
+$(querrySelector).each(function() {
+      const articleURL = `${baseURL}${$(this).find('.title a').attr('href')}`
+      request(articleURL, function(err, res, body) {
+        if(err) console.log(`Error: ${err}`)
+  ```
+        
+In the Tor Blog the needed elements to make it possible were ``` .title a``` and ```href```. For each article the ```baseURL``` would be used and linked to the complement that made it possible to find an specific article. 
 
+Example:
+
+At the Tor Blog one of the ```href``` available is ```<a href="/new-release-tor-browser-95" rel="bookmark">```. It means that for this article the ```baseURL``` + ```href``` will result in an address like this: <https://blog.torproject.org/new-release-tor-browser-95>. That's what you want your addresses to look like.
+
+### Inspecting The Elements Inside The Articles
+
+After you set the correct path to each article it's time to select inside each article all the informations that you want to display in the .csv file. The snipet bellow shows how this is possible:
+
+```javascript
+ const $ = cheerio.load(body)
+        const querrySelector = '.main-content-container .main-content .main-content-inner .inner-inner .region-content article'
+        const article = $(querrySelector).first()
+```
+Chose one of your articles and inspect the elements of that page. Above, the ```querrySelector``` received another path to find the information contained in the article. Inside the class ```.region-content``` is a html tag called ```article```. This tag contains the data that was collected about the post. 
+
+### Chosing Which Data To Collect
+
+The purpose of the crawler was to assemble a spreadsheet to document the posts, as mentioned above. Being so, it was defined that the data to be collected would be time stamp, date published, title, author, and the tags for each post. These information were found at the html tag ```article```. However, it were necessary to create new const to receive the values of each html tag and class. 
+
+```javascript
+const articleTimeStamp = article.find('.author span').attr('content').split('+')[0]
+        const articleDate = article.find('.author span').text().trim()
+        const articleTitle = article.find('.title span').text().trim()
+        const articleAuthor = article.find('.author a').text().trim()
+        const articleTags = []
+```
+Each const receveived the correspondent information from the article. When the ```article.find``` is executed the code searches inside the tag article for the parameters inside the parentesis. For example ```.author a``` is where the name of the author is at the Tor Blog, so that's the selector that must be inside the parentesis being received by the ```const articleAuthor```. And this process repeats for all the other data, always inspecting the element, fiding the path and setting them inside the parentesis. 
+
+### Tags
+
+The variable ```articleTags``` is the only one different here. One of the purposes of this crawler was to identify all the tags of each article. Therefore, this was vital for Tor Blog, but may be useless to other websites. Especially if you don't work with tags. It forst declares an array and then sets a path to the data. 
+
+```javascript
+article.find('.field--name-field-tags .field--items .field--item a').each(function(i, el) {
+          articleTags[i] = $(this).text()
+```
+
+Above is where the tags are collected. Inside the tag article is setted a path until the element ```a``` which contains each tag used in the article. Using the method ```each``` there will be an interaction recording every tag in the ```ì``` that is inserted in the array until there is no more tags to collect. 
 
 

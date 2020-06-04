@@ -1,4 +1,4 @@
-# TorProjectCrawler-Outreachy2019-2020
+# Tor Project Crawler - Outreachy 2019-2020
 
 Crawler in JavaScript created to fetch info from the Tor Project Blog in order to organize a spreadsheet with blog entries information and document the current posts. 
 
@@ -23,7 +23,7 @@ This command will run the crawler. That will generate a file that can be opened 
 
 As soon as the code executes you can follow the fetching process through the terminal, where the information shown is the same being recorded in the .csv file. 
 
-[imagem]
+![Printscreen of the recording process during code execution](https://drive.google.com/file/d/18EoYpgIWLioM4cicuFboVvEo5TLcz6aB/view?usp=sharing 'Printscreen of the recording process during code execution')
 
 The file was initially named "tor.csv". However, you can change it to fit your purpose. 
  
@@ -115,7 +115,7 @@ If you are intending to use it elsewhere it is necessary to understand which dat
 On the first page of the Tor Blog and using the elements inspection of the browser it was possible to identify which selectors (tags, classes) were necessary to locate each article from each page. Once the correct path was identified it was inserted in the code. 
 
 ```javascript
-    const querrySelector = '.main-content-container .main-content .main-content-inner .inner-inner .region-content .views-element-container .views-row article'
+const querrySelector = '.main-content-container .main-content .main-content-inner .inner-inner .region-content .views-element-container .views-row article'
  ```
 Above is the first time that the constant ```querrySelector``` appears. This constant is used to receive the selector containing the paths to the articles. This selector will do it for each article on each of the 60 pages. 
 
@@ -145,30 +145,29 @@ After you set the correct path to each post it's time to select inside each arti
         const querrySelector = '.main-content-container .main-content .main-content-inner .inner-inner .region-content article'
         const article = $(querrySelector).first()
 ```
-Chose one of your articles and inspect the elements of that page. Above, the ```querrySelector``` received another path to find the information contained in the article. Inside the class ```.region-content``` is a html tag called ```article```. This tag contains the data that was collected about the post. 
+Chose one of your articles and inspect the elements of that page. Above, the ```querrySelector``` received another selector to find the information contained in the article. Inside the class ```.region-content``` is a html tag called ```article```. This tag contains the data that was collected about the post. 
 
 ### Chosing Which Data To Collect
 
-The purpose of the crawler was to assemble a spreadsheet to document the posts, as mentioned above. Being so, it was defined that the data to be collected would be time stamp, date published, title, author, and the tags for each post. These information were found at the html tag ```article```. However, it were necessary to create new const to receive the values of each html tag and class. 
+The purpose of the crawler was to assemble a spreadsheet to document the posts, as mentioned above. Being so, it was defined that the data to be collected would be time stamp, date published, title, author, and the tags for each post. These information were found at the html tag ```article```. To achieve this were created new consts to receive the data.
 
 ```javascript
 const articleTimeStamp = article.find('.author span').attr('content').split('+')[0]
-        const articleDate = article.find('.author span').text().trim()
-        const articleTitle = article.find('.title span').text().trim()
-        const articleAuthor = article.find('.author a').text().trim()
-        const articleTags = []
+const articleDate = article.find('.author span').text().trim()
+const articleTitle = article.find('.title span').text().trim()
+const articleAuthor = article.find('.author a').text().trim()
+const articleTags = []
 ```
-Each const receveived the correspondent information from the article. When the ```article.find``` is executed the code searches inside the tag article for the parameters inside the parentesis. For example ```.author a``` is where the name of the author is at the Tor Blog, so that's the selector that must be inside the parentesis being received by the ```const articleAuthor```. And this process repeats for all the other data, always inspecting the element, fiding the path and setting them inside the parentesis. 
+
+Each const receveived the correspondent information from the article. When the method ```article.find(selector).text().trim()``` is executed it searches specific data using the selector. For example ```.author a``` is where the name of the author is at the Tor Blog, so that's the selector that must be passed as a parameter to that method. The result is stored in ```const articleAuthor```. That interaction will happen to all of the data being searched. 
 
 ### Tags
 
-The variable ```articleTags``` is the only one different here. One of the purposes of this crawler was to identify all the tags of each article. Therefore, this was vital for Tor Blog, but may be useless to other websites. Especially if you don't work with tags. It forst declares an array and then sets a path to the data. 
+The variable ```articleTags``` is the only one different here. One of the purposes of this crawler was to identify all the tags of each article. Therefore, this was vital for Tor Blog, but may be useless to other websites. Especially if you don't work with tags. It first declares an array and then fills it in with the retrived data.
 
 ```javascript
 article.find('.field--name-field-tags .field--items .field--item a').each(function(i, el) {
           articleTags[i] = $(this).text()
 ```
 
-Above is where the tags are collected. Inside the tag article is setted a path until the element ```a``` which contains each tag used in the article. Using the method ```each``` there will be an interaction recording every tag in the ```ì``` that is inserted in the array until there is no more tags to collect. 
-
-
+Using ```i``` to control the index of the array each tag will be inserted in a position of the array ```articleTags```. 

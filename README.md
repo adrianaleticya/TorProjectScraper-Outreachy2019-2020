@@ -23,7 +23,7 @@ This command will run the crawler. That will generate a file that can be opened 
 
 As soon as the code executes you can follow the fetching process through the terminal, where the information shown is the same being recorded in the .csv file. 
 
-![Printscreen of the recording process during code execution](https://drive.google.com/file/d/18EoYpgIWLioM4cicuFboVvEo5TLcz6aB/view?usp=sharing 'Printscreen of the recording process during code execution')
+![Printscreen of the recording process during code execution](https://github.com/adrianaleticya/TorProjectCrawler-Outreachy2019-2020/blob/master/image.png 'Printscreen of the recording process during code execution')
 
 The file was initially named "tor.csv". However, you can change it to fit your purpose. 
  

@@ -1,10 +1,10 @@
-# Tor Project Crawler - Outreachy 2019-2020
+# Tor Project Scraper - Outreachy 2019-2020
 
-Crawler in JavaScript created to fetch info from the Tor Project Blog to organize a spreadsheet with blog entries information and document the current posts. 
+Scraper in JavaScript created to fetch info from the Tor Project Blog to organize a spreadsheet with blog entries information and document the current posts. 
 
 ## How To Use it?
 
-To use this crawler you just need NodeJS installed in your system and download or clone this repository. Inside the repository execute through the command line (prompt). Run the command below to install the libs used in the code.
+To use this scraper you just need NodeJS installed in your system and download or clone this repository. Inside the repository execute through the command line (prompt). Run the command below to install the libs used in the code.
 
 ```$ npm install``` 
 
@@ -68,7 +68,7 @@ The variable ```baseURL``` is the one pointing to the address where the desired 
 baseURL: 'https://blog.torproject.org'
 ```
 
-The ```baseURL``` is the primary address that you will be working with. In this case, as the crawler was working with the Tor Project Blog website, the address is <https://blog.torproject.org>.
+The ```baseURL``` is the primary address that you will be working with. In this case, as the scraper was working with the Tor Project Blog website, the address is <https://blog.torproject.org>.
 
 It is important to notice that this address is already a page where all the articles get listed, limited by a certain number of publications per page. If the website that you intend to work with doesn't show the posts on the front page, remember to use the URL of the blog page of said website.
 
@@ -90,7 +90,7 @@ This crawler was designed for a Querry Params URL as we can see below:
 ```javascript
 paramPage: '/?page='
 ```
-It is important to understand how the crawler works with the pages. If your website works the same way as Tor Project Blog, then you are good to go. Else it is necessary to comment the ```paramPage: '/?page='``` and uncomment ```paramPage: '/page/'```.
+It is important to understand how the scraper works with the pages. If your website works the same way as Tor Project Blog, then you are good to go. Else it is necessary to comment the ```paramPage: '/?page='``` and uncomment ```paramPage: '/page/'```.
 
 #### Understanding The Number Of Pages Fetched
 
@@ -104,9 +104,9 @@ Inside the file ```config.js``` there are two variables that define the number o
   
 To overcome this problem a simple solution is running the application as many times as necessary to cover all the available pages. We only need to change the pages according to the execution. On the second time running, ```firstPage``` receives 61 and  ```finalPage``` receives 120. Always keeping the limit of 60 pages per run. 
 
-## Understanding How The Crawler Collects Data
+## Understanding How The Scraper Collects Data
 
-This crawler was developed to organize and document all the posts published in the Tor Blog. To do that the Html of the blog was inspected, making it possible to obtain specific information from each article. Those pieces of information are timestamp, date posted, title, author, and tags. This structure was thought through to fit the organizational process that The Tor Project needed at the time. 
+This scraper was developed to organize and document all the posts published in the Tor Blog. To do that the Html of the blog was inspected, making it possible to obtain specific information from each article. Those pieces of information are timestamp, date posted, title, author, and tags. This structure was thought through to fit the organizational process that The Tor Project needed at the time. 
 
 If you are intending to use it elsewhere it is necessary to understand which data is important to you and how to change the fetching selectors inside the code. 
 
@@ -149,7 +149,7 @@ Chose one of your articles and inspect the elements of that page. Above, the ```
 
 ### Choosing Which Data To Collect
 
-The purpose of the crawler was to assemble a spreadsheet to document the posts, as mentioned above. Being so, it was defined that the data to be collected would be timestamps, date published, title, author, and the tags for each post. This information was found in the Html tag ```article```. To achieve this new consts were created to receive the data.
+The purpose of the scraper was to assemble a spreadsheet to document the posts, as mentioned above. Being so, it was defined that the data to be collected would be timestamps, date published, title, author, and the tags for each post. This information was found in the Html tag ```article```. To achieve this new consts were created to receive the data.
 
 ```javascript
 const articleTimeStamp = article.find('.author span').attr('content').split('+')[0]
@@ -163,7 +163,7 @@ Each const received the corresponding information from the post. When the method
 
 ### Tags
 
-The variable ```articleTags``` is different. One of the purposes of this crawler was to identify all the tags of each article. Therefore, this was vital for Tor Blog, but may be useless to other websites. Especially if you don't work with tags. It first declares an array and then fills it in with the retrieved data.
+The variable ```articleTags``` is different. One of the purposes of this scraper was to identify all the tags of each article. Therefore, this was vital for Tor Blog, but may be useless to other websites. Especially if you don't work with tags. It first declares an array and then fills it in with the retrieved data.
 
 ```javascript
 article.find('.field--name-field-tags .field--items .field--item a').each(function(i, el) {
@@ -171,3 +171,7 @@ article.find('.field--name-field-tags .field--items .field--item a').each(functi
 ```
 
 Using ```i``` to control the index of the array each tag will be inserted in a position of the array ```articleTags```. 
+
+## The Expected Result
+
+When the process is done, as the function ```apend``` was used, all the data collected will be stored one after another at each iteration. Making the final ```.svg``` file ready to be read as a normal spreadhseet with all the information collected. 
